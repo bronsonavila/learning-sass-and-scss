@@ -1,0 +1,243 @@
+// Not necessary to include underscore or extension when importing partials:
+@import 'partials/functions';
+@import 'partials/variables';
+@import 'partials/mixins';
+
+// Mixins can be included as follows:
+@include google-font('Alegreya+Sans');
+@include google-font('Titillium+Web');
+
+@include fancy-links;
+@include apply-to-ie-6 {
+  // The following block will be passed into the
+  // "apply-to-ie-6" @mixin via the @content directive:
+  body {
+    font-size: 125%;
+  }
+}
+
+body {
+  // Variables are prefaced with a "$" symbol:
+  font-family: $text-font;
+  // em() is a custom function (contained in the _functions.scss partial):
+  font-size: em(18px);
+  color: $text-color;
+  background-color: $body-background-color;
+  // SASS allows you to use nested @media queries (directly or via @include):
+  @include large-screens {
+    font-size: 125%;
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: $headline-font;
+}
+
+h2 {
+  @include large-text;
+}
+
+p {
+  font-family: $text-font;
+}
+
+a {
+  color: $link-color;
+
+  // Overrides color depending on the value assigned to the $brands variable:
+  @include blue-beans {
+    color: #8779ff;
+  }
+
+  // Use "&" to reference the parent selector when using a pseudo-selector:
+  &:hover {
+    // SASS has a built-in darken() function that takes in two arguments:
+    // (1) the initial color, and (2) the percentage by which to darken the
+    // initial color (NOTE: Including the argument name is optional):
+    color: darken($color: $link-color, $amount: 15%);
+  }
+}
+
+// @for loop syntax allows iteration "from 1 through 6" (inclusive of 6),
+// or "from 1 to 6" (non-inclusive of 6).  The numbers can be set in either
+// ascending or descending order:
+@for $i from 1 through 6 {
+  .column-#{$i} {
+    width: $i * 2em;
+  }
+}
+
+// @each loop syntax allows iteration over any list/map (as opposed to
+// just numbers, as in the case of a @for loop):
+$speakers: bob-banker, patty-plume, sandra-smith; // SCSS list syntax.
+@each $speaker in $speakers {
+  .profile-#{$speaker} {
+    background-image: url('/img/#{$speaker}.png');
+  }
+}
+
+$font-sizes: (tiny: 8px, small: 11px, medium: 13px, large: 18px); // SCSS map.
+@each $property, $value in $font-sizes {
+  .#{$property} {
+    font-size: $value;
+  }
+}
+
+// @while loop syntax:
+$j: 2;
+@while $j <= 8 {
+  .picture-#{$j} {
+    width: $j * 10%;
+  }
+  $j: $j + 2;
+}
+
+.error {
+  color: red;
+}
+
+.error-critical {
+  // The @extend directive allows one selector to inherit the properties of
+  // another selector.  As a result, your HTML does not need to reference
+  // both selectors; rather, you need only reference the "extended" selector.
+
+  // LIMITATION: @extend only works with single element selectors
+  // (e.g., a:hover, .headline-large) NOT sequences (e.g., .headline .large).
+
+  // LIMITATION: If you are using @extend inside of a @media query, you can
+  // only extend from selectors that are contained within the @media block.
+  // However, the inverse is permissible: Selectors outside of a @media query
+  // can inherit from selectors inside of a @media query block.
+
+  // NOTE: The task performed here by @extend could also be done with a @mixin;
+  // however, SASS will process the output differently.  The primary difference
+  // is that @extend will result in more selectors sharing blocks of code
+  // (reducing duplication of code), whereas @mixin will result in fewer
+  // selectors sharing blocks of code (resulting in more compartmentalized
+  // selectors with greater duplication of code).  However, if you GZIP your
+  // CSS files, using @mixin yields better performance than using @extend.
+  // See: https://tech.bellycard.com/blog/sass-mixins-vs-extends-the-data/
+  @extend .error;
+  bottom: 1px solid red;
+  font-weight: bold;
+}
+
+// "@extend-Only Selectors" (a.k.a. "Placeholder Selectors") are selectors
+// that will not be compiled into CSS; rather, they are only used for being
+// extended into another selector.  This is useful for minimizing your CSS
+// file size by eliminating selectors that are not used in your HTML.  Such
+// placeholder selectors are prefixed with the "%" symbol:
+%highlight {
+  font-style: italic;
+}
+
+.sub-title {
+  @extend %highlight;
+  // SASS will only extend if the selector exists (rather than throw an error):
+  @extend .foo !optional;
+  font-size: em(20px);
+}
+
+.button-warning {
+  // Include all styles contained in the "warning" @mixin:
+  @include warning;
+  padding: 8px 12px;
+}
+
+.button-call-to-action {
+  @extend .button-warning;
+  @extend .error;
+  @include box-rounded;
+  font-weight: bold;
+}
+
+.button-call-to-action-super {
+  @extend .button-call-to-action;
+  font-size: em(20px);
+}
+
+#header {
+  // Insert the desired values as @mixin arguments, and they will be assigned to
+  // their respective arguments in the order specified when creating the @mixin.
+  // Alternatively, you can pass in specific arguments to override defaults by
+  // specifying the name of the argument whose value you want to set:
+  @include box-rounded($border: 1px solid #fbfbfb, $border-radius: 12px);
+  // A @mixin that uses a "variable argument" requires that each value in the
+  // variable argument be separated by a comma:
+  @include box-shadow(2px 0px 4px #999, 1px 1px 6px $secondary-color);
+  height: $header-height;
+  background-color: $theme-color;
+
+  #main-menu {
+    ul {
+      text-align: center;
+      padding-left: 0;
+
+      li {
+        display: inline;
+      }
+      a {
+        color: $menu-item-color;
+        padding: 6px 8px;
+        // transparentize() and opacify() are built-in SASS functions:
+        border-bottom: 1px solid transparentize($color: #fefefe, $amount: 1);
+        transition: border-bottom 300ms ease-in-out;
+
+        &:hover {
+          border-bottom: 1px solid opacify($color: #fefefe, $amount: 0.5);
+        }
+      }
+    }
+  }
+}
+
+#main {
+  width: $content-width;
+  margin: 0 auto;
+
+  @include large-screens {
+    width: auto;
+    max-width: $content-width;
+  }
+
+  #content {
+    float: left;
+    width: 6 * $column;
+  }
+
+  #sidebar {
+    float: right;
+    width: 2 * $column;
+
+    ul {
+      padding-left: 0;
+
+      li {
+        list-style-type: none;
+        padding: em(16px);
+        border-bottom: 1px dashed #999;
+
+        &:hover {
+          background-color: #efefef;
+
+          @if $theme == Dark {
+            background-color: #42675b;
+          }
+        }
+      }
+    }
+  }
+}
+
+#footer {
+  clear: both;
+  height: $footer-height;
+  background-color: $ternary-color;
+
+  @include adams-apples {
+    border-top: 5px solid darken($ternary-color, 15%);
+  }
+}

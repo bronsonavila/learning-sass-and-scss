@@ -1,0 +1,110 @@
+// This file is recognized by the preprocesser as a "partial" because the
+// file name begins with an underscore.  SASS will not generate CSS files from
+// partials.  Partials must be imported by non-partial SCSS files.
+
+// A @mixin can accept arguments using the same syntax as variables:
+@mixin google-font($font) {
+  // unquote() is a SASS function that can help ensure URL strings are correctly
+  // formatted by removing surrounding quotation marks from the string:
+  $font: unquote($font);
+  // SASS interpolation syntax for CSS (not SCSS) file imports: #{$variable}
+  @import url(https://fonts.googleapis.com/css?family=#{$font});
+}
+
+@mixin apply-to-ie-6 {
+  // "* html" Hack
+  // (See http://mynthon.net/howto/-/webdev/CSS-big-list-of-css-hacks.txt):
+  * html {
+    // The @content directive will be populated by whatever block of code is
+    // inserted when using the @mixin via "@include apply-to-ie-6":
+    @content;
+  }
+}
+
+// Arguments can include default values if specified:
+@mixin rounded($border-radius: 6px) {
+  border-radius: $border-radius;
+}
+
+@mixin box-rounded($border-radius: 6px, $border: 1px solid #333) {
+  // A @mixin can include styles contained in other mixins:
+  @include rounded($border-radius);
+  border: $border;
+}
+
+// Arguments can be a "variable argument" (via spread operator syntax):
+@mixin box-shadow($shadows...) {
+  box-shadow: $shadows;
+}
+
+@mixin large-text {
+  // SCSS syntax allows you to take prefixed CSS properties (e.g.,
+  // font-size, font-weight, etc.) and break them down as follows:
+  font: {
+    size: 22px;
+    weight: bold;
+  }
+}
+
+@mixin fancy-links {
+  a {
+    font-style: italic;
+    text-decoration: none;
+  }
+}
+
+@mixin warning {
+  background-color: $secondary-color;
+  color: #fff;
+
+  &:hover {
+    background-color: lighten($secondary-color, 10%);
+  }
+}
+
+// SCREEN SIZES:
+
+@mixin tiny-screens() {
+  @media only screen and (max-width: 320px) {
+    @content;
+  }
+}
+
+@mixin small-screens() {
+  @media only screen and (max-width: 480px) {
+    @content;
+  }
+}
+
+@mixin medium-screens() {
+  @media only screen and (max-width: 680px) {
+    @content;
+  }
+}
+
+@mixin large-screens() {
+  @media only screen and (max-width: 960px) {
+    @content;
+  }
+}
+
+// BRANDS:
+
+@mixin adams-apples {
+  @if $brand == adams-apples {
+    @content;
+  }
+}
+
+@mixin blue-beans {
+  @if $brand == blue-beans {
+    @content;
+  }
+}
+
+@mixin calvins-curry {
+  @if $brand == calvins-curry {
+    @content;
+  }
+}
+

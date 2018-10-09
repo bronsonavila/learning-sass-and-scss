@@ -1,0 +1,212 @@
+@import url(https://fonts.googleapis.com/css?family=Alegreya+Sans);
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web);
+a {
+  font-style: italic;
+  text-decoration: none;
+}
+
+* html body {
+  font-size: 125%;
+}
+
+body {
+  font-family: "Alegreya Sans", Arial, sans-serif;
+  font-size: 1.125em;
+  color: #212121;
+  background-color: #fbfbfb;
+}
+@media only screen and (max-width: 960px) {
+  body {
+    font-size: 125%;
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Titillium Web", Georgia, serif;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+p {
+  font-family: "Alegreya Sans", Arial, sans-serif;
+}
+
+a {
+  color: #1683d3;
+}
+a:hover {
+  color: #0f588e;
+}
+
+.column-1 {
+  width: 2em;
+}
+
+.column-2 {
+  width: 4em;
+}
+
+.column-3 {
+  width: 6em;
+}
+
+.column-4 {
+  width: 8em;
+}
+
+.column-5 {
+  width: 10em;
+}
+
+.column-6 {
+  width: 12em;
+}
+
+.profile-bob-banker {
+  background-image: url("/img/bob-banker.png");
+}
+
+.profile-patty-plume {
+  background-image: url("/img/patty-plume.png");
+}
+
+.profile-sandra-smith {
+  background-image: url("/img/sandra-smith.png");
+}
+
+.tiny {
+  font-size: 8px;
+}
+
+.small {
+  font-size: 11px;
+}
+
+.medium {
+  font-size: 13px;
+}
+
+.large {
+  font-size: 18px;
+}
+
+.picture-2 {
+  width: 20%;
+}
+
+.picture-4 {
+  width: 40%;
+}
+
+.picture-6 {
+  width: 60%;
+}
+
+.picture-8 {
+  width: 80%;
+}
+
+.error, .button-call-to-action, .button-call-to-action-super, .error-critical {
+  color: red;
+}
+
+.error-critical {
+  bottom: 1px solid red;
+  font-weight: bold;
+}
+
+.sub-title {
+  font-style: italic;
+}
+
+.sub-title {
+  font-size: 1.25em;
+}
+
+.button-warning, .button-call-to-action, .button-call-to-action-super {
+  background-color: #1683d3;
+  color: #fff;
+  padding: 8px 12px;
+}
+.button-warning:hover, .button-call-to-action:hover, .button-call-to-action-super:hover {
+  background-color: #329cea;
+}
+
+.button-call-to-action, .button-call-to-action-super {
+  border-radius: 6px;
+  border: 1px solid #333;
+  font-weight: bold;
+}
+
+.button-call-to-action-super {
+  font-size: 1.25em;
+}
+
+#header {
+  border-radius: 12px;
+  border: 1px solid #fbfbfb;
+  box-shadow: 2px 0px 4px #999, 1px 1px 6px #1683d3;
+  height: 60px;
+  background-color: #1b1c1d;
+}
+#header #main-menu ul {
+  text-align: center;
+  padding-left: 0;
+}
+#header #main-menu ul li {
+  display: inline;
+}
+#header #main-menu ul a {
+  color: #fbfbfb;
+  padding: 6px 8px;
+  border-bottom: 1px solid rgba(254, 254, 254, 0);
+  transition: border-bottom 300ms ease-in-out;
+}
+#header #main-menu ul a:hover {
+  border-bottom: 1px solid #fefefe;
+}
+
+#main {
+  width: 960px;
+  margin: 0 auto;
+}
+@media only screen and (max-width: 960px) {
+  #main {
+    width: auto;
+    max-width: 960px;
+  }
+}
+#main #content {
+  float: left;
+  width: 69.75%;
+}
+#main #sidebar {
+  float: right;
+  width: 23.25%;
+}
+#main #sidebar ul {
+  padding-left: 0;
+}
+#main #sidebar ul li {
+  list-style-type: none;
+  padding: 1em;
+  border-bottom: 1px dashed #999;
+}
+#main #sidebar ul li:hover {
+  background-color: #efefef;
+}
+
+#footer {
+  clear: both;
+  height: 90px;
+  background-color: #e0e1e2;
+  border-top: 5px solid #b8bbbd;
+}
+
+/*# sourceMappingURL=main.css.map */

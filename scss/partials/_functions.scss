@@ -1,0 +1,22 @@
+// Calculates the "em" value for a given "pixel" value
+// (NOTE: The normal font size for most browsers is 16px):
+@function em($pixels, $context: 16px) {
+  @return ($pixels / $context) * 1em;
+}
+
+// Calculates the width of a single column in a grid layout:
+@function column-width($columns: 12, $page-width: 100%, $gap: 1%) {
+  // Subtract total gap space from total page width, and
+  // divide by the number of columns on the page:
+  @return ($page-width - $gap * ($columns - 1)) / $columns;
+}
+
+// Removes unit from value (e.g., converts "2px" into "2")
+// (NOTE: Usage of this function may be controversial, as you may be running
+// calculations incorrectly if you need to strip units to perform calculations:
+@function strip-unit($value) {
+  // Divide $value (e.g., 12px) by 1 of its given unit (e.g., 1px),
+  // which results in:
+  // 12px / 1px = 12
+  @return $value / ($value * 0 + 1);
+}
